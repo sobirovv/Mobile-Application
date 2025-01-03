@@ -1,17 +1,13 @@
 package com.example.loginsignupapp
 
 class CredentialsManager {
-
-    fun validateEmail(email: String): Boolean {
-        if (email.isEmpty()) {
-            return false
-        }
-
-        val emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$".toRegex()
-        return email.matches(emailRegex)
+    fun CheckingEmail(email: String): Boolean {
+        if (email.isEmpty()) return false
+        val emailPattern = "[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}"
+        return email.matches(emailPattern.toRegex())
     }
 
-    fun validatePassword(password: String): Boolean {
+    fun CheckingPassword(password: String): Boolean {
         return password.isNotEmpty()
     }
 }
