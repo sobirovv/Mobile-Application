@@ -1,15 +1,15 @@
 plugins {
-    alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
+    id("com.android.application")
+    id("org.jetbrains.kotlin.android")
 }
 
 android {
-    namespace = "com.example.loginsignupapp"
+    namespace = "com.example.mobileapp"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.example.loginsignupapp"
-        minSdk = 24
+        applicationId = "com.example.mobileapp"
+        minSdk = 27
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -26,23 +26,35 @@ android {
             )
         }
     }
+
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
+
     kotlinOptions {
-        jvmTarget = "11"
+        jvmTarget = "1.8"
     }
 }
 
 dependencies {
+    // Core Android Libraries
+    implementation("androidx.core:core-ktx:1.15.0")
+    implementation("androidx.appcompat:appcompat:1.7.0")
+    implementation("androidx.constraintlayout:constraintlayout:2.2.0")
 
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.material)
-    implementation(libs.androidx.activity)
-    implementation(libs.androidx.constraintlayout)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
+    // Material Components for UI components such as MaterialCardView
+    implementation("com.google.android.material:material:1.9.0")
+
+    // Testing Dependencies
+    testImplementation("junit:junit:4.13.2") // JUnit 4 (default for Android)
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.10.0") // JUnit 5 core API
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.10.0") // JUnit 5 runtime engine
+
+    androidTestImplementation("androidx.test.ext:junit:1.2.1")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
+}
+
+tasks.withType<Test> {
+    useJUnitPlatform() // Enable JUnit 5 for JVM tests
 }
