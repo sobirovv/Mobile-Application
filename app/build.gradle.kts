@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.mobileapp"
+    namespace = "com.example.loginsignupapp"  // Change this to match your package name
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.example.mobileapp"
+        applicationId = "com.example.loginsignupapp"  // Ensure this matches as well
         minSdk = 27
         targetSdk = 34
         versionCode = 1

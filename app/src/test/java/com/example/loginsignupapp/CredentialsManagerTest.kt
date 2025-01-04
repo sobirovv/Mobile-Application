@@ -1,4 +1,5 @@
 package com.example.loginsignupapp
+
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.Assertions.*
 
@@ -7,31 +8,31 @@ class CredentialsManagerTest {
     private val credentialsManager = CredentialsManager()
 
     @Test
-    fun EmptyEmailString() {
+    fun `test empty email string`() {
         val result = credentialsManager.CheckingEmail("")
-        assertEquals(false, result)
+        assertFalse(result, "Empty email should be invalid")
     }
 
     @Test
-    fun WrongFormatEmailString() {
+    fun `test wrongly formatted email string`() {
         val result = credentialsManager.CheckingEmail("invalid-email")
-        assertEquals(false, result)
+        assertFalse(result, "Incorrectly formatted email should be invalid")
     }
 
     @Test
-    fun WellFormatEmailString() {
+    fun `test well-formatted email string`() {
         val result = credentialsManager.CheckingEmail("example@test.com")
-        assertEquals(true, result)
+        assertTrue(result, "Correctly formatted email should be valid")
     }
 
     @Test
-    fun EmptyPasswordString() {
+    fun `test empty password string`() {
         val result = credentialsManager.CheckingPassword("")
-        assertEquals(false, result)
+        assertFalse(result, "Empty password should be invalid")
     }
 
     @Test
-    fun FilledPasswordString() {
+    fun testFilledPassword() {
         val result = credentialsManager.CheckingPassword("securePassword123")
         assertEquals(true, result)
     }
