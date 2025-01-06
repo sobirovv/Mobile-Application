@@ -60,7 +60,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/emailInputLayout"
+        android:id="@+id/emailContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
@@ -88,7 +88,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
-        android:layout_below="@id/emailInputLayout"
+        android:layout_below="@id/emailContainer"
         android:layout_marginTop="20dp"
         app:boxBackgroundMode="outline"
         app:boxStrokeColor="#FFFFFF"
@@ -106,7 +106,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/passwordInputLayout"
+        android:id="@+id/passwordContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
@@ -132,7 +132,7 @@
         android:id="@+id/rememberMe"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/passwordInputLayout"
+        android:layout_below="@id/passwordContainer"
         android:layout_marginStart="30dp"
         android:layout_marginTop="10dp"
         android:button="@null"
@@ -146,7 +146,7 @@
         android:id="@+id/termsText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/passwordInputLayout"
+        android:layout_below="@id/passwordContainer"
         android:layout_toEndOf="@id/rememberMe"
         android:layout_marginStart="5dp"
         android:layout_marginTop="25.5dp"

@@ -1,39 +1,28 @@
 package com.example.loginsignupapp
 
-import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.Assertions.*
+import org.junit.Assert.*
+import org.junit.Before
+import org.junit.Test
 
 class CredentialsManagerTest {
 
-    private val credentialsManager = CredentialsManager()
+    private lateinit var credentialsManager: CredentialsManager
 
-    @Test
-    fun `test empty email string`() {
-        val result = credentialsManager.CheckingEmail("")
-        assertFalse(result, "Empty email should be invalid")
+    @Before
+    fun setup() {
+        credentialsManager = CredentialsManager()
     }
 
     @Test
-    fun `test wrongly formatted email string`() {
-        val result = credentialsManager.CheckingEmail("invalid-email")
-        assertFalse(result, "Incorrectly formatted email should be invalid")
+    fun testRegisterNewAccount() {
+        val result = credentialsManager.register("test@te.st", "password123")
+        assertEquals("Registration successful", result)
     }
 
     @Test
-    fun `test well-formatted email string`() {
-        val result = credentialsManager.CheckingEmail("example@test.com")
-        assertTrue(result, "Correctly formatted email should be valid")
-    }
-
-    @Test
-    fun `test empty password string`() {
-        val result = credentialsManager.CheckingPassword("")
-        assertFalse(result, "Empty password should be invalid")
-    }
-
-    @Test
-    fun testFilledPassword() {
-        val result = credentialsManager.CheckingPassword("securePassword123")
-        assertEquals(true, result)
+    fun testRegisterWithExistingEmail() {
+        credentialsManager.register("test@te.st", "password123")
+        val result = credentialsManager.register("test@te.st", "newpassword456")
+        assertEquals("Email already taken", result)
     }
 }
