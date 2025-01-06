@@ -1,17 +1,23 @@
 package com.example.loginsignupapp
 
-class CredentialsManager {
+import android.content.Context
 
-    private val accounts: MutableMap<String, String> = mutableMapOf()
+class CredentialsManager(private val context: Context) {
+
+    private val sharedPreferences = context.getSharedPreferences("user_data", Context.MODE_PRIVATE)
 
     fun register(email: String, password: String): String {
-            if (accounts.containsKey(email)) {
-                return "Email already taken"
-            } else {
-                accounts[email] = password
-                return "Registration successful"
+        val existingAccount = sharedPreferences.getString(email, null)
+        return if (existingAccount != null) {
+            "Email already taken"
+        } else {
+            with(sharedPreferences.edit()) {
+                putString(email, password)
+                apply()
             }
+            "Registration successful"
         }
+    }
 
     fun validateEmail(email: String): Boolean {
         return email.contains("@")
@@ -20,7 +26,10 @@ class CredentialsManager {
     fun validatePassword(password: String): Boolean {
         return password.length >= 6
     }
+
     fun validateCredentials(email: String, password: String): Boolean {
-        return accounts[email] == password
+        val storedPassword = sharedPreferences.getString(email, null)
+        return storedPassword == password
     }
 }
+

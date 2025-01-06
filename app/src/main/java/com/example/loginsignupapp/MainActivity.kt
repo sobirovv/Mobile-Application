@@ -16,13 +16,15 @@ class MainActivity : AppCompatActivity() {
     private lateinit var emailEditText: TextInputEditText
     private lateinit var passwordEditText: TextInputEditText
     private lateinit var signInButton: MaterialButton
-    private val credentialsManager = CredentialsManager()
+    private lateinit var credentialsManager: CredentialsManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val registerNowTextView: TextView = findViewById(R.id.tvNewMemberText2)
 
+        credentialsManager = CredentialsManager(this)
+
+        val registerNowTextView: TextView = findViewById(R.id.tvNewMemberText2)
         registerNowTextView.setOnClickListener {
             val intent = Intent(this, CreateAccountActivity::class.java)
             startActivity(intent)
@@ -56,10 +58,13 @@ class MainActivity : AppCompatActivity() {
 
             if (valid && credentialsManager.validateCredentials(email, password)) {
                 Toast.makeText(this, "Login successful", Toast.LENGTH_SHORT).show()
-                // Proceed to another screen if necessary
-            } else if (valid) {
+                val intent = Intent(this, HomeActivity::class.java)
+                startActivity(intent)
+                finish()
+            } else {
                 Toast.makeText(this, "Incorrect email or password", Toast.LENGTH_SHORT).show()
             }
         }
     }
 }
+

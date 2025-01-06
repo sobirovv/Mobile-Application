@@ -14,17 +14,19 @@ class CreateAccountActivity : AppCompatActivity() {
     private lateinit var passwordInputLayout: TextInputLayout
     private lateinit var registerButton: MaterialButton
     private lateinit var loginNowTextView: TextView
+    private lateinit var credentialsManager: CredentialsManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_account)
+
+        credentialsManager = CredentialsManager(this)
 
         emailInputLayout = findViewById(R.id.emailContainer)
         passwordInputLayout = findViewById(R.id.passwordContainer)
         registerButton = findViewById(R.id.signInButton)
         loginNowTextView = findViewById(R.id.tvLogIn)
 
-        val credentialsManager = CredentialsManager()
         loginNowTextView.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
@@ -58,3 +60,6 @@ class CreateAccountActivity : AppCompatActivity() {
         }
     }
 }
+
+
+
