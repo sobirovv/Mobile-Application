@@ -60,6 +60,3 @@ class CreateAccountActivity : AppCompatActivity() {
         }
     }
 }
-
-
-

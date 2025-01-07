@@ -43,6 +43,7 @@ dependencies {
     implementation("androidx.constraintlayout:constraintlayout:2.2.0")
 
     implementation("com.google.android.material:material:1.9.0")
+    implementation(libs.androidx.activity)
 
     testImplementation("junit:junit:4.13.2")
     testImplementation("org.mockito:mockito-core:5.5.0")

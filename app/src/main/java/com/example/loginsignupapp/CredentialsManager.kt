@@ -32,4 +32,3 @@ class CredentialsManager(private val context: Context) {
         return storedPassword == password
     }
 }
-
