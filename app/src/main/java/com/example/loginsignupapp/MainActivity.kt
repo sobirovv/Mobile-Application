@@ -2,6 +2,7 @@ package com.example.loginsignupapp
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.CheckBox
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -16,6 +17,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var emailEditText: TextInputEditText
     private lateinit var passwordEditText: TextInputEditText
     private lateinit var signInButton: MaterialButton
+    private lateinit var rememberMeCheckBox: CheckBox
     private lateinit var credentialsManager: CredentialsManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,6 +37,16 @@ class MainActivity : AppCompatActivity() {
         emailEditText = findViewById(R.id.email)
         passwordEditText = findViewById(R.id.password)
         signInButton = findViewById(R.id.signInButton)
+        rememberMeCheckBox = findViewById(R.id.rememberMe)
+
+        val sharedPreferences = getSharedPreferences("user_preferences", MODE_PRIVATE)
+        val rememberMe = sharedPreferences.getBoolean("remember_me", false)
+        if (rememberMe) {
+            val storedEmail = sharedPreferences.getString("email", "")
+            val storedPassword = sharedPreferences.getString("password", "")
+            emailEditText.setText(storedEmail)
+            passwordEditText.setText(storedPassword)
+        }
 
         signInButton.setOnClickListener {
             val email = emailEditText.text.toString()
@@ -56,8 +68,25 @@ class MainActivity : AppCompatActivity() {
                 passwordContainer.error = null
             }
 
+            val rememberMeChecked = rememberMeCheckBox.isChecked
+
             if (valid && credentialsManager.validateCredentials(email, password)) {
                 Toast.makeText(this, "Login successful", Toast.LENGTH_SHORT).show()
+
+                if (rememberMeChecked) {
+                    val editor = sharedPreferences.edit()
+                    editor.putString("email", email)
+                    editor.putString("password", password)
+                    editor.putBoolean("remember_me", true)
+                    editor.apply()
+                } else {
+                    val editor = sharedPreferences.edit()
+                    editor.remove("email")
+                    editor.remove("password")
+                    editor.remove("remember_me")
+                    editor.apply()
+                }
+
                 val intent = Intent(this, HomeActivity::class.java)
                 startActivity(intent)
                 finish()
@@ -67,4 +96,3 @@ class MainActivity : AppCompatActivity() {
         }
     }
 }
-
