@@ -61,7 +61,6 @@ class LoginFragment : Fragment() {
 
             if (valid && credentialsManager.validateCredentials(email, password)) {
                 Toast.makeText(requireContext(), "Login successful", Toast.LENGTH_SHORT).show()
-                // Navigate to HomeActivity or another screen after login
             } else {
                 Toast.makeText(requireContext(), "Incorrect email or password", Toast.LENGTH_SHORT).show()
             }

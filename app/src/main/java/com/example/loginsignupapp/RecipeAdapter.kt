@@ -6,12 +6,13 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 
 class RecipeAdapter(
-    private val recipes: List<Recipe>,
     private val listener: OnItemClickListener
-) : RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder>() {
+) : ListAdapter<Recipe, RecipeAdapter.RecipeViewHolder>(RecipeDiffCallback()) {
 
     interface OnItemClickListener {
         fun onItemClick(recipeId: Int)
@@ -24,11 +25,9 @@ class RecipeAdapter(
     }
 
     override fun onBindViewHolder(holder: RecipeViewHolder, position: Int) {
-        val recipe = recipes[position]
+        val recipe = getItem(position)
         holder.bind(recipe)
     }
-
-    override fun getItemCount(): Int = recipes.size
 
     inner class RecipeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val recipeImage: ImageView = itemView.findViewById(R.id.recipeImage)
@@ -51,6 +50,16 @@ class RecipeAdapter(
             shareButton.setOnClickListener {
                 listener.onActionClick(recipe.id, "Share")
             }
+        }
+    }
+
+    class RecipeDiffCallback : DiffUtil.ItemCallback<Recipe>() {
+        override fun areItemsTheSame(oldItem: Recipe, newItem: Recipe): Boolean {
+            return oldItem.id == newItem.id
+        }
+
+        override fun areContentsTheSame(oldItem: Recipe, newItem: Recipe): Boolean {
+            return oldItem == newItem
         }
     }
 }
